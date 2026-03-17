@@ -1,0 +1,54 @@
+CAR DAMAGE DETECTION PROJECT - RUN GUIDE
+
+1. Install Python (3.9 - 3.11 recommended)
+
+2. Open terminal in project folder
+
+3. Install dependencies: (In terminal run)
+   pip install -r requirements.txt
+
+4. Run the application:
+   python app.py
+
+5. Open browser:
+   http://127.0.0.1:5001/
+
+6. Upload a car image and view results
+
+----------------------------------------
+
+Project Features:
+- Detect car damage using AI (YOLO)
+- Shows damaged parts
+- Calculates damage percentage
+- Predicts severity (Low/Medium/High)
+- Estimates repair cost
+- Gives insurance advice
+
+----------------------------------------
+
+Common Issues:
+
+1. Port error:
+   Change port in app.py:
+   app.run(port=5001)
+
+2. Model not loading:
+   Check path: weights/best.pt
+
+3. Slow processing:
+   First run may take time (model loading)
+
+----------------------------------------
+
+Folder Structure:
+
+CarDamageApp/
+│
+├── app.py
+├── test2.py
+├── requirements.txt
+├── weights/
+│   └── best.pt
+├── templates/
+│   └── index.html
