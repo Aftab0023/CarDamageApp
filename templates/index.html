@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car Damage Detection</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background: #f5f5f5;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+
+        .btn {
+            padding: 12px 25px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .result {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .danger { color: red; }
+        .safe { color: green; }
+
+        .images {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        img {
+            width: 300px;
+            border-radius: 10px;
+        }
+
+        .severity-low { color: green; font-weight: bold; }
+        .severity-medium { color: orange; font-weight: bold; }
+        .severity-high { color: red; font-weight: bold; }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #eee;
+            margin: 5px;
+            padding: 8px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🚗 Car Damage Detection System</h1>
+
+    <div class="container">
+
+        <!-- Upload -->
+        <div class="card">
+            <form method="POST" enctype="multipart/form-data">
+                <input type="file" name="image" required>
+                <br><br>
+                <button class="btn">Upload & Detect</button>
+            </form>
+        </div>
+
+        {% if processed %}
+        <div class="card">
+            <h2>📊 Results</h2>
+
+            <p class="result">
+                Damage Rate: <b>{{ damage_rate }}%</b>
+            </p>
+
+            <p class="result">
+                Damage Count: <b>{{ count }}</b>
+            </p>
+
+            <!-- 🔥 CLEAN PARTS DISPLAY -->
+            <p class="result">Damaged Parts:</p>
+            <ul>
+                {% for part in parts %}
+                    <li>{{ part }}</li>
+                {% endfor %}
+            </ul>
+
+            <!-- 🔥 SEVERITY -->
+            <p class="result">
+                Severity:
+                <span class="
+                    {% if severity == 'High' %}severity-high
+                    {% elif severity == 'Medium' %}severity-medium
+                    {% else %}severity-low
+                    {% endif %}
+                ">
+                    {{ severity }}
+                </span>
+            </p>
+
+            <!-- 💰 COST -->
+            <p class="result">
+                Estimated Repair Cost: <b>₹{{ cost }}</b>
+            </p>
+
+            <!-- 🤖 INSURANCE -->
+            <p class="result">
+                Insurance Advice: <b>{{ advice }}</b>
+            </p>
+
+            <!-- STATUS -->
+            <p class="result {% if count > 0 %}danger{% else %}safe{% endif %}">
+                {% if count > 0 %}
+                    ⚠️ Damage Detected
+                {% else %}
+                    ✅ No Damage
+                {% endif %}
+            </p>
+
+            <!-- 🔥 SIDE BY SIDE IMAGES -->
+            <div class="images">
+                <div>
+                    <h3>Original</h3>
+                    <img src="data:image/jpeg;base64,{{ original }}">
+                </div>
+
+                <div>
+                    <h3>Processed</h3>
+                    <img src="data:image/jpeg;base64,{{ processed }}">
+                </div>
+            </div>
+
+        </div>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
